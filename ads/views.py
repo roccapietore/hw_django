@@ -6,7 +6,7 @@ from ads.models import Ad, Category
 
 
 class AdsView(View):
-    def get(self):
+    def get(self, request):
         return JsonResponse({"status": "ok"}, status=200)
 
 
