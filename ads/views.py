@@ -1,5 +1,8 @@
-from django.http import JsonResponse
+import json
+from django.http import JsonResponse, request
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
 
 from ads.models import Ad, Category
@@ -10,6 +13,7 @@ class AdsView(View):
         return JsonResponse({"status": "ok"}, status=200)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class AdView(View):
     def get(self, request):
         ads = Ad.objects.all()
@@ -22,6 +26,27 @@ class AdView(View):
                 "price": ad.price,
             })
         return JsonResponse(response, safe=False, json_dumps_params={"ensure_ascii": False, "indent": 2})
+
+    def post(self, request):
+        ad_data = json.loads(request.body)
+        new_ad = Category()
+        new_ad.name = ad_data["name"]
+        new_ad.author = ad_data["author"]
+        new_ad.price = ad_data["price"]
+        new_ad.description = ad_data["description"]
+        new_ad.address = ad_data["address"]
+        new_ad.is_published = ad_data["is_published"]
+
+        new_ad.save()
+
+        return JsonResponse({
+                "id": new_ad.pk,
+                "name": new_ad.name,
+                "author": new_ad.author,
+                "description": new_ad.description,
+                "address": new_ad.address,
+                "is_published": new_ad.is_published,
+        }, json_dumps_params={"ensure_ascii": False, "indent": 2})
 
 
 class AdDetailView(DetailView):
@@ -40,6 +65,7 @@ class AdDetailView(DetailView):
             }, json_dumps_params={"ensure_ascii": False, "indent": 2})
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class CategoryView(View):
     def get(self, request):
         categories = Category.objects.all()
@@ -50,6 +76,17 @@ class CategoryView(View):
                 "name": category.name,
             })
         return JsonResponse(response, safe=False, json_dumps_params={"ensure_ascii": False, "indent": 2})
+
+    def post(self, request):
+        category_data = json.loads(request.body)
+        new_category = Category()
+        new_category.name = category_data["name"]
+        new_category.save()
+
+        return JsonResponse({
+                "id": new_category.pk,
+                "name": new_category.name,
+        }, json_dumps_params={"ensure_ascii": False, "indent": 2})
 
 
 class CategoryDetailView(DetailView):
