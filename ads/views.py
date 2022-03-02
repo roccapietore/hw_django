@@ -4,8 +4,10 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
-
 from ads.models import Ad, Category
+
+
+json_params = {"ensure_ascii": False, "indent": 2}
 
 
 class AdsView(View):
@@ -25,7 +27,7 @@ class AdView(View):
                 "author": ad.author,
                 "price": ad.price,
             })
-        return JsonResponse(response, safe=False, json_dumps_params={"ensure_ascii": False, "indent": 2})
+        return JsonResponse(response, safe=False, json_dumps_params=json_params)
 
     def post(self, request):
         ad_data = json.loads(request.body)
@@ -46,7 +48,7 @@ class AdView(View):
                 "description": new_ad.description,
                 "address": new_ad.address,
                 "is_published": new_ad.is_published,
-        }, json_dumps_params={"ensure_ascii": False, "indent": 2})
+        },  status=201, json_dumps_params=json_params)
 
 
 class AdDetailView(DetailView):
@@ -62,7 +64,7 @@ class AdDetailView(DetailView):
             "description": ad.description,
             "address": ad.address,
             "is_published": ad.is_published,
-            }, json_dumps_params={"ensure_ascii": False, "indent": 2})
+            }, json_dumps_params=json_params)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -75,7 +77,7 @@ class CategoryView(View):
                 "id": category.id,
                 "name": category.name,
             })
-        return JsonResponse(response, safe=False, json_dumps_params={"ensure_ascii": False, "indent": 2})
+        return JsonResponse(response, safe=False, json_dumps_params=json_params)
 
     def post(self, request):
         category_data = json.loads(request.body)
@@ -86,7 +88,7 @@ class CategoryView(View):
         return JsonResponse({
                 "id": new_category.pk,
                 "name": new_category.name,
-        }, json_dumps_params={"ensure_ascii": False, "indent": 2})
+        },  status=201, json_dumps_params=json_params)
 
 
 class CategoryDetailView(DetailView):
