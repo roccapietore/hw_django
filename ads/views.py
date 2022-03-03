@@ -99,4 +99,4 @@ class CategoryDetailView(DetailView):
         return JsonResponse({
             "id": category.id,
             "name": category.name,
-            }, json_dumps_params={"ensure_ascii": False, "indent": 2})
+            }, json_dumps_params=json_params)
