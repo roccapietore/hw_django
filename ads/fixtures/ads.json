@@ -1,7 +1,7 @@
 [
     {
+        "model": "Ad",
         "pk": 1,
-        "model": "ads.Ad",
         "fields": {
             "name": "Сибирская котята, 3 месяца",
             "author": "Павел",
@@ -12,8 +12,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 2,
-        "model": "ads.Ad",
         "fields": {
             "name": "Стратегия голубого океана\n",
             "author": "Павел",
@@ -24,8 +24,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 3,
-        "model": "ads.Ad",
         "fields": {
             "name": "Принципы, Рэй Далио",
             "author": "Галина",
@@ -36,8 +36,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 4,
-        "model": "ads.Ad",
         "fields": {
             "name": "Разумный инвестор",
             "author": "Галина",
@@ -48,8 +48,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 5,
-        "model": "ads.Ad",
         "fields": {
             "name": "Розанов В. В. Уединенное",
             "author": "Борис",
@@ -60,8 +60,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 6,
-        "model": "ads.Ad",
         "fields": {
             "name": "Alice Sebold - The lovely bone\n",
             "author": "Виолетта",
@@ -72,8 +72,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 7,
-        "model": "ads.Ad",
         "fields": {
             "name": "Котята в добрые руки",
             "author": "Галина",
@@ -84,8 +84,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 8,
-        "model": "ads.Ad",
         "fields": {
             "name": "Молодая кошечка Груша",
             "author": "Галина",
@@ -96,8 +96,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 9,
-        "model": "ads.Ad",
         "fields": {
             "name": "Собака в добрые руки",
             "author": "Галина",
@@ -108,8 +108,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 10,
-        "model": "ads.Ad",
         "fields": {
             "name": "Собака Дуся в добрые руки",
             "author": "Галина",
@@ -120,8 +120,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 11,
-        "model": "ads.Ad",
         "fields": {
             "name": "Стол из слэба и эпоксидной смолы",
             "author": "Петр",
@@ -132,8 +132,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 12,
-        "model": "ads.Ad",
         "fields": {
             "name": "Собака в добрые руки",
             "author": "Петр",
@@ -144,8 +144,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 13,
-        "model": "ads.Ad",
         "fields": {
             "name": "Метис овчарки в добрые руки",
             "author": "Никита",
@@ -156,8 +156,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 14,
-        "model": "ads.Ad",
         "fields": {
             "name": "Черенки петунии, рассада цветов, овощей",
             "author": "Никита",
@@ -168,8 +168,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 15,
-        "model": "ads.Ad",
         "fields": {
             "name": "Гардения Жасминовидная",
             "author": "Никита",
@@ -180,8 +180,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 16,
-        "model": "ads.Ad",
         "fields": {
             "name": "Петуния, крейзитуния, бленкет, сурфиния, калиб",
             "author": "Борис",
@@ -192,8 +192,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 17,
-        "model": "ads.Ad",
         "fields": {
             "name": "Добрый песик ищет хозяина",
             "author": "Борис",
@@ -204,8 +204,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 18,
-        "model": "ads.Ad",
         "fields": {
             "name": "Стол лофт большой\n",
             "author": "Павел",
@@ -216,8 +216,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 19,
-        "model": "ads.Ad",
         "fields": {
             "name": "Стол прямой прям хороший",
             "author": "Борис",
@@ -228,8 +228,8 @@
         }
     },
     {
+        "model": "Ad",
         "pk": 20,
-        "model": "ads.Ad",
         "fields": {
             "name": "Котенок в добрые руки",
             "author": "Никита",
