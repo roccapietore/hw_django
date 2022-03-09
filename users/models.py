@@ -15,17 +15,23 @@ class Location(models.Model):
 
 
 class User(models.Model):
+    ROLES = [
+        ("member", "Пользователь"),
+        ("moderator", "Модератор"),
+        ("admin", "Админ"),
+    ]
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
-    role = models.CharField(max_length=20)
+    role = models.CharField(max_length=20, choices=ROLES, default="member")
     age = models.SmallIntegerField()
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ManyToManyField(Location)
 
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+        ordering = ["username"]
 
     def __str__(self):
         return self.username
