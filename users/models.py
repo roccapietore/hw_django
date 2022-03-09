@@ -3,8 +3,8 @@ from django.db import models
 
 class Location(models.Model):
     name = models.CharField(max_length=20)
-    lat = models.DecimalField(max_digits=10, decimal_places=6, null=True)
-    lng = models.DecimalField(max_digits=10, decimal_places=6, null=True)
+    lat = models.CharField(max_length=50, null=True)
+    lng = models.CharField(max_length=50, null=True)
 
     class Meta:
         verbose_name = "Локация"
