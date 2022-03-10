@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Location(models.Model):
-    name = models.CharField(max_length=20)
-    lat = models.CharField(max_length=50, null=True)
-    lng = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=100)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, null=True)
+    lng = models.DecimalField(max_digits=9, decimal_places=6, null=True)
 
     class Meta:
         verbose_name = "Локация"
@@ -20,13 +20,13 @@ class User(models.Model):
         ("moderator", "Модератор"),
         ("admin", "Админ"),
     ]
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    username = models.CharField(max_length=20, unique=True)
-    password = models.CharField(max_length=20)
-    role = models.CharField(max_length=20, choices=ROLES, default="member")
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, unique=True)
+    password = models.CharField(max_length=200)
+    role = models.CharField(max_length=200, choices=ROLES, default="member")
     age = models.PositiveSmallIntegerField()
-    location = models.ManyToManyField(Location)
+    locations = models.ManyToManyField(Location)
 
     class Meta:
         verbose_name = "Пользователь"

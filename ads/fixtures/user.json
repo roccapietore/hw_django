@@ -1,6 +1,6 @@
 [
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 1,
         "fields": {
             "first_name": "Павел",
@@ -9,11 +9,11 @@
             "password": "gZvptL",
             "role": "member",
             "age": 21,
-            "location_id": 1
+            "locations": [1]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 2,
         "fields": {
             "first_name": "Альбина",
@@ -22,11 +22,11 @@
             "password": "4fVqL2",
             "role": "moderator",
             "age": 24,
-            "location_id": 3
+            "locations": [3]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 3,
         "fields": {
             "first_name": "Иван",
@@ -35,11 +35,11 @@
             "password": "o535pj",
             "role": "admin",
             "age": 29,
-            "location_id": 8
+            "locations": [8]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 4,
         "fields": {
             "first_name": "Марина",
@@ -48,11 +48,11 @@
             "password": "d49rSO",
             "role": "moderator",
             "age": 19,
-            "location_id": 10
+            "locations": [10]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 5,
         "fields": {
             "first_name": "Галина",
@@ -61,11 +61,11 @@
             "password": "wCqlVE",
             "role": "member",
             "age": 41,
-            "location_id": 2
+            "locations": [2]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 6,
         "fields": {
             "first_name": "Петр",
@@ -74,11 +74,11 @@
             "password": "xuR2jf",
             "role": "member",
             "age": 37,
-            "location_id": 4
+            "locations": [4]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 7,
         "fields": {
             "first_name": "Никита",
@@ -87,11 +87,11 @@
             "password": "gzP4vR",
             "role": "member",
             "age": 26,
-            "location_id": 7
+            "locations": [7]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 8,
         "fields": {
             "first_name": "Виолетта",
@@ -100,11 +100,11 @@
             "password": "zo0rj6",
             "role": "member",
             "age": 24,
-            "location_id": 5
+            "locations": [5]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 9,
         "fields": {
             "first_name": "Гульнара",
@@ -113,11 +113,11 @@
             "password": "daMocL",
             "role": "moderator",
             "age": 22,
-            "location_id": 9
+            "locations": [9]
         }
     },
     {
-        "model": "User",
+        "model": "users.user",
         "pk": 10,
         "fields": {
             "first_name": "Борис",
@@ -126,7 +126,7 @@
             "password": "sasha123456",
             "role": "member",
             "age": 35,
-            "location_id": 6
+            "locations": [6]
         }
     }
 ]
