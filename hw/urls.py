@@ -25,6 +25,7 @@ urlpatterns = [
     path('create_ad/', views.AdCreateView.as_view()),
     path('ad/<int:pk>/update', views.AdUpdateView.as_view()),
     path('ad/<int:pk>/delete', views.AdDeleteView.as_view()),
+    path('ad/<int:pk>/upload_image', views.AdImageView.as_view()),
 
     path('cat/', views.CategoryListView.as_view()),
     path('cat/<int:pk>', views.CategoryDetailView.as_view()),
