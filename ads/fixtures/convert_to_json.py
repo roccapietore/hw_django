@@ -35,8 +35,8 @@ def convert(filepath: str, model: str, pk_field_name: str = 'id') -> List[Dict[s
                 fields[k] = value
 
             results.append({
-                'pk': int(line.pop(pk_field_name)),
                 'model': model,
+                'pk': int(line.pop(pk_field_name)),
                 'fields': fields
             })
 
@@ -46,7 +46,7 @@ def convert(filepath: str, model: str, pk_field_name: str = 'id') -> List[Dict[s
 def write_results(filename: str, data: List[Dict[str, Any]], indent: int):
     with open(filename, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=indent)
-    print(f'File {filename} coverted successfully')
+    print(f'File {filename} converted successfully')
 
 
 def main():
