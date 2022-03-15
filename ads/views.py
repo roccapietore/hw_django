@@ -138,7 +138,7 @@ class AdDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         super().delete(request, *args, **kwargs)
 
-        return JsonResponse({"status": "ok"}, status=200)
+        return JsonResponse({"status": "ok"}, status=204)
 
 
 class CategoryListView(ListView):
@@ -210,7 +210,7 @@ class CategoryDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         super().delete(request, *args, **kwargs)
 
-        return JsonResponse({"status": "ok"}, status=200)
+        return JsonResponse({"status": "ok"}, status=204)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -233,5 +233,5 @@ class AdImageView(UpdateView):
             "is_published": self.object.is_published,
             "category_id": self.object.category_id,
             "image": self.object.image.url if self.object.image else None,
-        }, status=200, json_dumps_params=json_params)
+        }, status=201, json_dumps_params=json_params)
 
