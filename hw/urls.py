@@ -20,6 +20,7 @@ from ads import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include("rest_framework.urls")),
     path('', views.AdsView.as_view()),
     path('ad/', include("ads.urls")),
     path('user/', include("users.urls")),
