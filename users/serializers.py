@@ -65,3 +65,10 @@ class UserDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id"]
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
+

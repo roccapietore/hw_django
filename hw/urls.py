@@ -16,7 +16,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+
 from ads import views
+from users.views import LocationView
+
+router = routers.SimpleRouter()
+router.register('location', LocationView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,3 +32,4 @@ urlpatterns = [
     path('user/', include("users.urls")),
 ]
 
+urlpatterns += router.urls

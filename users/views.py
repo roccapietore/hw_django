@@ -1,11 +1,12 @@
-import json
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import JsonResponse, request
+from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView
 from hw import settings
 from users.models import User, Location
-from users.serializers import UserSerializer, UserCreateSerializer, UserUpdateSerializer, UserDeleteSerializer
+from users.serializers import UserSerializer, UserCreateSerializer, UserUpdateSerializer, UserDeleteSerializer, \
+    LocationSerializer
 
 
 class UserListView(ListAPIView):
@@ -62,4 +63,8 @@ class UserDeleteView(DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserDeleteSerializer
 
+
+class LocationView(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
