@@ -23,7 +23,25 @@ class AdListView(ListView):
     queryset = Ad.objects.all()
 
     def get(self, request,  *args, **kwargs):
-        super().get(request, *args, **kwargs)
+        super().get(request,  *args, **kwargs)
+
+        category_name = request.GET.get("cat", None)
+        if category_name:
+            self.object_list = self.object_list .filter(category__id__exact=category_name)
+
+        ad_name_contains = request.GET.get("text", None)
+        if ad_name_contains:
+            self.object_list = self.object_list.filter(name__icontains=ad_name_contains)
+
+        location_name = request.GET.get("location", None)
+        if location_name:
+            self.object_list = self.object_list.filter(author__locations__name__icontains=location_name)
+
+        price_from = request.GET.get("price_from", None)
+        price_to = request.GET.get("price_to", None)
+        if price_from and price_to:
+            self.object_list = self.object_list.filter(price__range=(price_from, price_to))
+
         self.object_list = self.object_list.select_related("author").order_by("-price")
 
         paginator = Paginator(self.object_list, settings.TOTAL_ON_PAGE)
