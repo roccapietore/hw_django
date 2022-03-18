@@ -1,5 +1,6 @@
 import json
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.http import JsonResponse, request
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
@@ -22,20 +23,24 @@ class AdListView(ListView):
     model = Ad
     queryset = Ad.objects.all()
 
-    def get(self, request,  *args, **kwargs):
-        super().get(request,  *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        super().get(request, *args, **kwargs)
 
-        category_name = request.GET.get("cat", None)
-        if category_name:
-            self.object_list = self.object_list .filter(category__id__exact=category_name)
+        if category_list := request.GET.getlist("cat", None):
+            category_q = None
+            for category in category_list:
+                if not category_q:
+                    category_q = Q(category__id=category)
+                else:
+                    category_q |= Q(category__id=category)
+            if category_q:
+                self.object_list = self.object_list.filter(category_q)
 
-        ad_name_contains = request.GET.get("text", None)
-        if ad_name_contains:
+        if ad_name_contains := request.GET.get("text", None):
             self.object_list = self.object_list.filter(name__icontains=ad_name_contains)
 
-        location_name = request.GET.get("location", None)
-        if location_name:
-            self.object_list = self.object_list.filter(author__locations__name__icontains=location_name)
+        if location_name := request.GET.get("location", None):
+            self.object_list = self.object_list.filter(author__locations__name__icontains=location_name).distinct()
 
         price_from = request.GET.get("price_from", None)
         price_to = request.GET.get("price_to", None)
@@ -88,16 +93,16 @@ class AdCreateView(CreateView):
         )
 
         return JsonResponse({
-                "id": new_ad.id,
-                "name": new_ad.name,
-                "author_id": new_ad.author_id,
-                "author": new_ad.author.first_name,
-                "price": new_ad.price,
-                "description": new_ad.description,
-                "is_published": new_ad.is_published,
-                "category_id": new_ad.category_id,
-                "image": new_ad.image.url if new_ad.image else None,
-        },  status=201, json_dumps_params=json_params)
+            "id": new_ad.id,
+            "name": new_ad.name,
+            "author_id": new_ad.author_id,
+            "author": new_ad.author.first_name,
+            "price": new_ad.price,
+            "description": new_ad.description,
+            "is_published": new_ad.is_published,
+            "category_id": new_ad.category_id,
+            "image": new_ad.image.url if new_ad.image else None,
+        }, status=201, json_dumps_params=json_params)
 
 
 class AdDetailView(DetailView):
@@ -106,16 +111,16 @@ class AdDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         ad = self.get_object()
         return JsonResponse({
-                "id": ad.id,
-                "name": ad.name,
-                "author_id": ad.author_id,
-                "author": ad.author.first_name,
-                "price": ad.price,
-                "description": ad.description,
-                "is_published": ad.is_published,
-                "category_id": ad.category_id,
-                "image": ad.image.url if ad.image else None,
-            }, json_dumps_params=json_params)
+            "id": ad.id,
+            "name": ad.name,
+            "author_id": ad.author_id,
+            "author": ad.author.first_name,
+            "price": ad.price,
+            "description": ad.description,
+            "is_published": ad.is_published,
+            "category_id": ad.category_id,
+            "image": ad.image.url if ad.image else None,
+        }, json_dumps_params=json_params)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -181,14 +186,14 @@ class CategoryCreateView(CreateView):
     model = Category
     fields = ["name"]
 
-    def post(self, request,  *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         category_data = json.loads(request.body)
         new_category = Category.objects.create(name=category_data["name"])
 
         return JsonResponse({
-                "id": new_category.pk,
-                "name": new_category.name,
-        },  status=201, json_dumps_params=json_params)
+            "id": new_category.pk,
+            "name": new_category.name,
+        }, status=201, json_dumps_params=json_params)
 
 
 class CategoryDetailView(DetailView):
@@ -199,7 +204,7 @@ class CategoryDetailView(DetailView):
         return JsonResponse({
             "id": category.id,
             "name": category.name,
-            }, json_dumps_params=json_params)
+        }, json_dumps_params=json_params)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -207,7 +212,7 @@ class CategoryUpdateView(UpdateView):
     model = Category
     fields = ["name"]
 
-    def patch(self, request,  *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
 
         category_data = json.loads(request.body)
@@ -215,9 +220,9 @@ class CategoryUpdateView(UpdateView):
         self.object.save()
 
         return JsonResponse({
-                "id": self.object.id,
-                "name": self.object.name,
-        },  status=200, json_dumps_params=json_params)
+            "id": self.object.id,
+            "name": self.object.name,
+        }, status=200, json_dumps_params=json_params)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -252,4 +257,3 @@ class AdImageView(UpdateView):
             "category_id": self.object.category_id,
             "image": self.object.image.url if self.object.image else None,
         }, status=201, json_dumps_params=json_params)
-
