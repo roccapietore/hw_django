@@ -27,14 +27,8 @@ class AdListView(ListView):
         super().get(request, *args, **kwargs)
 
         if category_list := request.GET.getlist("cat", None):
-            category_q = None
-            for category in category_list:
-                if not category_q:
-                    category_q = Q(category__id=category)
-                else:
-                    category_q |= Q(category__id=category)
-            if category_q:
-                self.object_list = self.object_list.filter(category_q)
+            category = Q(category__id__in=category_list)
+            self.object_list = self.object_list.filter(category)
 
         if ad_name_contains := request.GET.get("text", None):
             self.object_list = self.object_list.filter(name__icontains=ad_name_contains)
