@@ -19,19 +19,25 @@ class UserCreateSerializer(serializers.ModelSerializer):
         exclude = ["id"]
         extra_kwargs = {'password': {'write_only': True}}
 
-        def is_valid(self, raise_exception=False):
-            self._locations = self.initial_data.pop("locations")
-            return super().is_valid(raise_exception=raise_exception)
+    def is_valid(self, raise_exception=False):
+        self._locations = self.initial_data.pop("locations")
+        return super().is_valid(raise_exception=raise_exception)
 
-        def create(self, validated_data):
-            new_user = super().create(validated_data)
+    def create(self, validated_data):
+        new_user = super().create(validated_data)
 
-            for location_name in self._locations:
-                location, _ = Location.objects.get_or_create(name=location_name)
-                new_user.locations.add(location)
+        for location_name in self._locations:
+            location, _ = Location.objects.get_or_create(name=location_name)
+            new_user.locations.add(location)
 
-            new_user.save()
-            return new_user
+        new_user.save()
+        return new_user
+
+    def save(self):
+        user = super().save()
+        user.set_password(user.password)
+        user.save()
+        return user
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
@@ -41,19 +47,25 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
 
-        def is_valid(self, raise_exception=False):
-            self._locations = self.initial_data.pop("locations")
-            return super().is_valid(raise_exception=raise_exception)
+    def is_valid(self, raise_exception=False):
+        self._locations = self.initial_data.pop("locations")
+        return super().is_valid(raise_exception=raise_exception)
 
-        def create(self, validated_data):
-            new_user = super().create(validated_data)
+    def create(self, validated_data):
+        new_user = super().create(validated_data)
 
-            for location_name in self._locations:
-                location, _ = Location.objects.get_or_create(name=location_name)
-                new_user.locations.add(location)
+        for location_name in self._locations:
+            location, _ = Location.objects.get_or_create(name=location_name)
+            new_user.locations.add(location)
 
-            new_user.update()
-            return new_user
+        new_user.update()
+        return new_user
+
+    def save(self):
+        user = super().save()
+        user.set_password(user.password)
+        user.save()
+        return user
 
 
 class UserRetrieveSerializer(serializers.ModelSerializer):

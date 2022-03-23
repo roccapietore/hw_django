@@ -30,6 +30,7 @@ urlpatterns = [
     path('', views.AdsView.as_view()),
     path('ad/', include("ads.urls")),
     path('user/', include("users.urls")),
+    path('selection/', include("selection.urls")),
 ]
 
 urlpatterns += router.urls
