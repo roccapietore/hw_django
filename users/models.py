@@ -1,5 +1,14 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
+
+
+min_user_age = 9
+
+
+def check_age(value: int):
+    if value < min_user_age:
+        raise ValidationError(f"{value} less than 9", params={'value': value})
 
 
 class Location(models.Model):
@@ -26,8 +35,10 @@ class User(AbstractUser):
     ]
 
     role = models.CharField(max_length=10, choices=ROLES, default="member")
-    age = models.PositiveSmallIntegerField()
+    age = models.PositiveSmallIntegerField(validators=[check_age])
     locations = models.ManyToManyField(Location)
+    birth_date = models.DateField(null=True)
+    email = models.CharField(max_length=100, unique=True, null=True)
 
     class Meta:
         verbose_name = "Пользователь"
