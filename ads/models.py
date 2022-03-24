@@ -1,12 +1,10 @@
-from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 
 from users.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(max_length=10, unique=True, validators=[MinLengthValidator(5)], null=True)
+    name = models.CharField(max_length=25, unique=True)
 
     class Meta:
         verbose_name = "Категория"
@@ -17,9 +15,9 @@ class Category(models.Model):
 
 
 class Ad(models.Model):
-    name = models.CharField(max_length=250, null=False, validators=[MinLengthValidator(10)])
+    name = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    price = models.PositiveIntegerField(validators=[MinValueValidator(0)])
+    price = models.PositiveIntegerField()
     description = models.TextField(null=True)
     is_published = models.BooleanField(default=False)
     image = models.ImageField(upload_to="ads_image/", null=True, blank=True)

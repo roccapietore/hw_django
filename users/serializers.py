@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from ads.models import User
 from users.models import Location
-from users.validators import CheckUsersAgeValidator, CheckEmailDomain
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,8 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    birth_date = serializers.DateTimeField(validators=[CheckUsersAgeValidator()])
-    email = serializers.CharField(validators=[CheckEmailDomain()])
     locations = serializers.SlugRelatedField(required=False, many=True, read_only=True, slug_field='name')
 
     class Meta:
