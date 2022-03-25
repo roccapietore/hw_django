@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    birth_date = serializers.DateTimeField(validators=[CheckUsersAgeValidator()])
+    birth_date = serializers.DateTimeField(required=False, validators=[CheckUsersAgeValidator()])
     email = serializers.CharField(validators=[CheckEmailDomain()])
     locations = serializers.SlugRelatedField(required=False, many=True, read_only=True, slug_field='name')
 

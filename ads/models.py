@@ -17,7 +17,7 @@ class Category(models.Model):
 
 
 class Ad(models.Model):
-    name = models.CharField(max_length=250, null=False, validators=[MinLengthValidator(10)])
+    name = models.CharField(max_length=250, validators=[MinLengthValidator(10)])
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.PositiveIntegerField(validators=[MinValueValidator(0)])
     description = models.TextField(null=True)
