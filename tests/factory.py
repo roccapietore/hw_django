@@ -1,5 +1,6 @@
 import factory
 from ads.models import Ad, Category
+from selection.models import Selection
 from users.models import User
 
 
@@ -16,7 +17,7 @@ class CategoryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Category
 
-    name = "test_category"
+    name = factory.Faker("name")
 
 
 class AdFactory(factory.django.DjangoModelFactory):
@@ -28,5 +29,14 @@ class AdFactory(factory.django.DjangoModelFactory):
     is_published = False
     author = factory.SubFactory(UserFactory)
     category = factory.SubFactory(CategoryFactory)
+
+
+class SelectionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Selection
+
+    name = "selection"
+    owner = factory.SubFactory(UserFactory)
+    items = factory.SubFactory(AdFactory)
 
 

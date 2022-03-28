@@ -6,7 +6,9 @@ import pytest
 def token(client, django_user_model):
     username = "username"
     password = "password"
-    django_user_model.objects.create_user(username=username, password=password)
+    age = 30
+
+    django_user_model.objects.create_user(username=username, password=password, age=age)
 
     response = client.post(
         "/user/token/",
