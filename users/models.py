@@ -1,9 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
-
-
-min_user_age = 9
+from hw.settings import min_user_age
 
 
 def check_age(value: int):
@@ -13,8 +11,8 @@ def check_age(value: int):
 
 class Location(models.Model):
     name = models.CharField(max_length=100)
-    lat = models.DecimalField(max_digits=9, decimal_places=6, null=True)
-    lng = models.DecimalField(max_digits=9, decimal_places=6, null=True)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    lng = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     class Meta:
         verbose_name = "Локация"
