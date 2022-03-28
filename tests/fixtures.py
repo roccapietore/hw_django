@@ -14,4 +14,4 @@ def token(client, django_user_model):
         "/user/token/",
         {"username": username, "password": password}, format="json")
 
-    assert response.data["access"], response.data["refresh"]
+    return response.data["access"], response.data["refresh"]

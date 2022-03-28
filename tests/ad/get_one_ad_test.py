@@ -3,9 +3,8 @@ import pytest
 
 @pytest.mark.django_db
 def test_get_one_ad(client, token, user, category, ad):
-    access_token, _ = token
+    access_token, refresh_token = token
     expected_response = {
-        "id": ad.id,
         "name": "namenamename",
         "author": user.id,
         "price": 2500,
@@ -16,12 +15,12 @@ def test_get_one_ad(client, token, user, category, ad):
     }
 
     response = client.get(
-        f"/ad/{ad.id}/",
+        f"/ad/ad/{ad.id}/",
         content_type="application/json",
         HTTP_AUTHORIZATION="Bearer " + access_token
     )
 
     assert response.status_code == 200
-    assert response.data == expected_response
+    assert response.json() == expected_response
 
 

@@ -3,7 +3,7 @@ import pytest
 
 @pytest.mark.django_db
 def test_selection_create(client, token, user, ad):
-    access_token, _ = token
+    access_token, refresh_token = token
 
     expected_response = {
         "id": 1,
@@ -15,9 +15,9 @@ def test_selection_create(client, token, user, ad):
     response = client.post(
         "/selection/create/",
         content_type="application/json",
-        HTTP_AUTHORIZATION="Bearer " + access_token
+        HTTP_AUTHORIZATION="Bearer " + refresh_token
     )
 
     assert response.status_code == 201
-    assert response == expected_response
+    assert response.json() == expected_response
 
