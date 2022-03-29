@@ -2,18 +2,17 @@ import json
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse, request
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from rest_framework.generics import RetrieveAPIView, DestroyAPIView
+from rest_framework.generics import RetrieveAPIView, DestroyAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from ads.models import Ad, Category
 from ads.permissions import AdUpdateDeletePermission, IsOwnerPermission
-from ads.serializers import AdSerializer, AdDeleteSerializer
+from ads.serializers import AdSerializer, AdDeleteSerializer, AdCreateSerializer
 from hw import settings
-from users.models import User
+
 
 json_params = {"ensure_ascii": False, "indent": 2}
 
@@ -73,34 +72,9 @@ class AdListView(ListView):
         return JsonResponse(response, safe=False, json_dumps_params=json_params)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class AdCreateView(CreateView):
-    model = Ad
-    fields = ["name", "author", "price", "description", "is_published", "category"]
-
-    def post(self, request, *args, **kwargs):
-        ad_data = json.loads(request.body)
-
-        new_ad = Ad.objects.create(
-            name=ad_data["name"],
-            author=get_object_or_404(User, pk=ad_data["author_id"]),
-            price=ad_data["price"],
-            description=ad_data["description"],
-            is_published=ad_data["is_published"],
-            category=get_object_or_404(Category, pk=ad_data["category_id"]),
-        )
-
-        return JsonResponse({
-            "id": new_ad.id,
-            "name": new_ad.name,
-            "author_id": new_ad.author_id,
-            "author": new_ad.author.first_name,
-            "price": new_ad.price,
-            "description": new_ad.description,
-            "is_published": new_ad.is_published,
-            "category_id": new_ad.category_id,
-            "image": new_ad.image.url if new_ad.image else None,
-        }, status=201, json_dumps_params=json_params)
+class AdCreateView(CreateAPIView):
+    queryset = Ad.objects.all()
+    serializer_class = AdCreateSerializer
 
 
 class AdDetailView(RetrieveAPIView):
