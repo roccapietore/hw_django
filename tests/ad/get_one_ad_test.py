@@ -15,7 +15,7 @@ def test_get_one_ad(client, token, user, category, ad):
         "image": None
     }
     response = client.get(
-        f"/ad/ad/{ad.id}/",
+        f"/ad/ad/{ad.id}",
         content_type="application/json",
         HTTP_AUTHORIZATION="Bearer " + access_token
     )
@@ -29,7 +29,7 @@ def test_not_found_ad(client, token):
     access_token, refresh_token = token
 
     response = client.get(
-        f"/ad/ad/300/",
+        f"/ad/ad/300",
         content_type="application/json",
         HTTP_AUTHORIZATION="Bearer " + access_token
     )

@@ -147,6 +147,6 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'users.User'
 
-min_user_age = 9
+MIN_USER_AGE = 9
 
 

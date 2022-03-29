@@ -13,9 +13,7 @@ def test_create_ad(client, user, category):
         "image": None
         }
 
-    data = {
-            "id": 1,
-            "name": "namenamename",
+    data = {"name": "namenamename",
             "author": user.id,
             "price": 2500,
             "is_published": False,
